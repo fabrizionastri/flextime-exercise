@@ -26,11 +26,12 @@ code.
    git push -u origin main
    ```
 
-3. Scaffold your Django project inside the repository and commit:
+3. Scaffold the Django backend and the React frontend inside the repository
+   (see [Repository layout](README.md#repository-layout)) and commit:
 
    ```bash
    git add .
-   git commit -m "Initial Django project scaffold"
+   git commit -m "Initial Django and React scaffold"
    git push
    ```
 
@@ -51,8 +52,12 @@ your own work in a separate **`SOLUTION.md`** (or a clearly marked section at th
 top of the README). It is part of the evaluation and should explain:
 
 - **Setup instructions** — how to install dependencies, run migrations, and
-  start the app (assume a reviewer who has never seen your project).
-- **Architecture decisions** — the shape of your solution and why.
+  start both the Django API and the React app (assume a reviewer who has never
+  seen your project).
+- **Architecture decisions** — the shape of your solution and why, including
+  how the React app authenticates against the API.
+- **API overview** — your endpoints at a glance (a short table, or a link to
+  generated OpenAPI docs).
 - **Assumptions** — the important calls you made where the brief was silent.
 - **Trade-offs** — what you chose and what you gave up.
 - **Completed features** — what works.
@@ -63,7 +68,8 @@ top of the README). It is part of the evaluation and should explain:
 ## 4. What to deliver
 
 - A **source code repository** (public, on GitHub), cloned from this one.
-- **Setup instructions** that let a reviewer run the app locally.
+- **Setup instructions** that let a reviewer run the backend and the frontend
+  locally.
 - The **`SOLUTION.md`** write-up described above.
 
 

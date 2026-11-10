@@ -75,6 +75,10 @@ it should support the following flows:
 Examples of acceptable mechanisms: magic links, one-time login links, email
 verification links.
 
+The link must leave the user signed in to the **React app**. How the token
+travels from the email to the API (the *Verify Token* operation below) is your
+design choice — document it.
+
 ---
 
 ## Calendars & sharing
@@ -95,6 +99,9 @@ token**, for example:
 The random token makes the URL **effectively unlisted** — it must not be
 possible to discover a calendar by guessing names or URLs. Users are expected to
 share their calendar URL outside the application (WhatsApp, email, etc.).
+
+This URL is a page of your React app; the frontend uses the token in it to load
+the calendar from the API.
 
 ---
 
@@ -358,12 +365,12 @@ This is a suggestion, not a mandate — adapt it as your design requires.
 
 ## API requirements
 
-A REST API is **only required if you build a decoupled frontend** (e.g. React).
-If you build a full-stack Django app with DTL templates, you do **not** need a
-separate REST API — plain Django URLs and views are sufficient.
+The Django backend must expose a **REST API** (JSON over HTTP), and the React
+frontend must get all of its data through it. The endpoint design — URLs, HTTP
+methods, payloads, status codes, and error responses — is up to you and is part
+of the evaluation.
 
-Whichever path you choose, the same operations need to exist. The list below is
-phrased as REST endpoints; map them onto Django views as appropriate:
+At minimum, the API must support these operations:
 
 **Authentication** — Sign In · Verify Token · Sign Out
 
@@ -385,6 +392,9 @@ Reasonable security practices are expected. In particular:
 - A user may only access a calendar through a **valid shared URL** or an
   **existing Calendar Access relationship**.
 - Email addresses must never be exposed to other users through the API or UI.
+- Every access, visibility, and status rule in this brief is **enforced by the
+  API**, not only by the React UI. A blocked visitor, for example, must not
+  receive newly created slots even when calling the endpoint directly.
 
 ---
 
@@ -394,8 +404,9 @@ Optional enhancements, in no particular order:
 
 - A calendar-style UI.
 - Mobile-first, responsive design.
-- Automated tests.
-- Docker-based deployment.
+- Automated tests (for the API, the React app, or both).
+- Docker-based setup (e.g. a single `docker compose up` that starts the API and
+  the frontend).
 - An audit trail of state changes.
 - Advanced filtering.
 - Email-based magic-link authentication (fully wired up).

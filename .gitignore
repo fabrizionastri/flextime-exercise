@@ -11,3 +11,9 @@ wheels/
 _docs
 db.sqlite3
 00*.py
+
+# Node / React
+node_modules/
+
+# Local environment
+.env
